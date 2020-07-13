@@ -3,9 +3,9 @@ function(input, output, session) {
   ratings <- read_sheet(as_sheets_id(ratings_sheet))
   d <- read_sheet(as_sheets_id("https://docs.google.com/spreadsheets/d/1Xl0lCC8nwzjUPHTqfLlgTfXK8yA8DjJpQFFVOcSeN4M/"),
     col_names = c(
-      "time", "title", "location", "link", "world",
+      "status", "time", "title", "location", "link", "world",
       "country", "state", "county", "city", "playable",
-      "notable"
+      "notable", "contributor"
     ),
     skip = 1
   )

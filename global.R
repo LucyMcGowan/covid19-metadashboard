@@ -10,10 +10,9 @@ library(googlesheets4)
 library(googledrive)
 
 source("sheets_ids.R")
-
 options(
   gargle_oauth_cache = ".secrets",
-  gargle_oauth_email = TRUE
-)
+  gargle_oauth_email = "lucydagostino@gmail.com"
+  )
 
 gs4_deauth()

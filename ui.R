@@ -49,8 +49,8 @@ dashboardPage(
             p(glue(
               "This dashboard was designed to collect COVID-19 dashboards in ",
               "a single location. Below is a listing of all dashboards included. ",
-              "Navigate in the side bar to the 'Search dashboards' tab to seacrh all dashboards ",
-              "by keyword as well as rate dashboards. Navigate to the ",
+              "Navigate in the side bar to the 'Search dashboards' tab to search all dashboards ",
+              "by keyword as well as up/downvote dashboards. Navigate to the ",
               "'Add to the database' tab to add missing dashboards."
             )),
             uiOutput("dashboard_list")
