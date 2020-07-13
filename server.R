@@ -1,22 +1,22 @@
 
 function(input, output, session) {
   ratings <- read_sheet(as_sheets_id(ratings_sheet))
-  d <- read_sheet(as_sheets_id("https://docs.google.com/spreadsheets/d/1Xl0lCC8nwzjUPHTqfLlgTfXK8yA8DjJpQFFVOcSeN4M/"),
+  d <- read_sheet(as_sheets_id("https://docs.google.com/spreadsheets/d/1dc7Ss_H4PtiTaAEQzVwrHtbqroeKsVCPF6_6hjtT6mY"),
     col_names = c(
-      "status", "time", "title", "location", "link", "world",
+      "title", "location", "link", "world",
       "country", "state", "county", "city", "playable",
       "notable", "contributor"
     ),
-    skip = 1
+    skip = 2
   )
   d <- d %>%
     mutate(
-      world = ifelse(world == "Yes", as.character(icon("check")), as.character(icon("remove"))),
-      country = ifelse(country == "Yes", as.character(icon("check")), as.character(icon("remove"))),
-      state = ifelse(state == "Yes", as.character(icon("check")), as.character(icon("remove"))),
-      county = ifelse(county == "Yes", as.character(icon("check")), as.character(icon("remove"))),
-      city = ifelse(city == "Yes", as.character(icon("check")), as.character(icon("remove"))),
-      playable = ifelse(playable == "Yes", as.character(icon("check")), as.character(icon("remove")))
+      world = ifelse(world == TRUE, as.character(icon("check")), as.character(icon("remove"))),
+      country = ifelse(country == TRUE, as.character(icon("check")), as.character(icon("remove"))),
+      state = ifelse(state == TRUE, as.character(icon("check")), as.character(icon("remove"))),
+      county = ifelse(county == TRUE, as.character(icon("check")), as.character(icon("remove"))),
+      city = ifelse(city == TRUE, as.character(icon("check")), as.character(icon("remove"))),
+      playable = ifelse(playable == TRUE, as.character(icon("check")), as.character(icon("remove")))
     ) %>%
     distinct(link, .keep_all = TRUE)
 

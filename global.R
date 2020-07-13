@@ -9,10 +9,10 @@ library(shinydashboard)
 library(googlesheets4)
 library(googledrive)
 
-source("sheets_ids.R")
 options(
   gargle_oauth_cache = ".secrets",
   gargle_oauth_email = "lucydagostino@gmail.com"
-  )
+)
+source("sheets_ids.R")
 
 gs4_deauth()
