@@ -218,8 +218,7 @@ function(input, output, session) {
 
   output$dash <- renderUI({
     out <- tags$iframe(src = vals$link, height = "1000", width = "100%")
-    print(input$link)
-    print(out)
+    print(vals$link)
     out
   })
 }
