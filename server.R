@@ -1,6 +1,7 @@
 
 function(input, output, session) {
-  ratings <- read_sheet(as_sheets_id(ratings_sheet))
+  ratings <- load_data()
+  ratings$rating <- as.numeric(ratings$rating)
   d <- read_sheet(as_sheets_id("https://docs.google.com/spreadsheets/d/1dc7Ss_H4PtiTaAEQzVwrHtbqroeKsVCPF6_6hjtT6mY"),
     col_names = c(
       "title", "location", "link", "world",
@@ -100,6 +101,9 @@ function(input, output, session) {
       t <- vals$data %>%
         filter(id == as.numeric(strsplit(input$upClick, "_")[[1]][2])) %>%
         pull(link)
+      current_rating <- vals$data %>%
+        filter(id == as.numeric(strsplit(input$upClick, "_")[[1]][2])) %>%
+        pull(rating)
       if (t %in% vals$ratings$link) {
         vals$ratings <- vals$ratings %>%
           mutate(rating = case_when(
@@ -111,23 +115,24 @@ function(input, output, session) {
             link == t ~ rating + 1,
             TRUE ~ rating
           ))
+        update_data(glue('{"link": "[t]"}',
+                         .open = "[", .close = "]"),
+                    glue('{"$set":{"rating": "[current_rating + 1]"}}',
+                         .open = "[", .close = "]"))
       } else {
+        new_rating <- tibble(
+          link = t,
+          rating = 1
+        )
         vals$ratings <- vals$ratings %>%
-          bind_rows(tibble(
-            link = t,
-            rating = 1
-          ))
+          bind_rows(new_rating)
         vals$data <- vals$data %>%
           mutate(rating = case_when(
             link == t ~ 1,
             TRUE ~ rating
           ))
+        save_data(new_rating)
       }
-      write_csv(vals$ratings, "temp.csv")
-      drive_update(
-        as_sheets_id(ratings_sheet),
-        "temp.csv"
-      )
     }
   })
 
@@ -146,6 +151,9 @@ function(input, output, session) {
       t <- vals$data %>%
         filter(id == as.numeric(strsplit(input$downClick, "_")[[1]][2])) %>%
         pull(link)
+      current_rating <- vals$data %>%
+        filter(id == as.numeric(strsplit(input$downClick, "_")[[1]][2])) %>%
+        pull(rating)
       if (t %in% vals$ratings$link) {
         vals$ratings <- vals$ratings %>%
           mutate(rating = case_when(
@@ -159,20 +167,25 @@ function(input, output, session) {
             link == t & rating == 0 ~ 0,
             TRUE ~ rating
           ))
+        new_rating <- ifelse(current_rating != 0, current_rating - 1, 0)
+        update_data(glue('{"link": "[t]"}',
+                         .open = "[", .close = "]"),
+                    glue('{"$set":{"rating": "[new_rating]"}}',
+                         .open = "[", .close = "]"))
       } else {
+        new_ratings <- tibble(
+          link = t,
+          rating = 0
+        )
         vals$ratings <- vals$ratings %>%
-          bind_rows(tibble(
-            link = t,
-            rating = 0
-          ))
+          bind_rows(new_ratings)
         vals$data <- vals$data %>%
           mutate(rating = case_when(
             link == t ~ 0,
             TRUE ~ rating
           ))
+        save_data(new_ratings)
       }
-      write_csv(vals$ratings, "temp.csv")
-      drive_update(as_sheets_id(ratings_sheet), "temp.csv")
     }
   })
 
@@ -216,6 +229,11 @@ function(input, output, session) {
     )
   })
 
+  output$thanks <- renderUI({
+    glue_collapse(unique(vals$data$contributor[!is.na(vals$data$contributor)]),
+                  sep = ", ")
+  })
+  
   output$dash <- renderUI({
     out <- tags$iframe(src = vals$link, height = "1000", width = "100%")
     print(vals$link)

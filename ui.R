@@ -86,7 +86,8 @@ dashboardPage(
       ),
       tabItem(
         tabName = "about",
-        includeMarkdown("about.md")
+        includeMarkdown("about.md"),
+        uiOutput("thanks")
       )
     )
   )
