@@ -78,14 +78,15 @@ function(input, output, session) {
     )
   )
 
+  df <- reactive({
+    vals$data %>%
+    select(
+      view, rating, upvote, downvote, title, location, world,
+      country, state, county, city, playable, notable
+    )
+  })
 
-  output$df <- DT::renderDataTable({
-    df <- vals$data %>%
-      select(
-        view, rating, upvote, downvote, title, location, world,
-        country, state, county, city, playable, notable
-      )
-    datatable(df,
+  output$df <- DT::renderDataTable(isolate(df()),
       escape = FALSE, rownames = FALSE, colnames =
         c(
           "", "Rating", "", "", "Description", "Country", "World Data",
@@ -94,7 +95,11 @@ function(input, output, session) {
         ),
       options = list(ordering = FALSE, scrollX = TRUE)
     )
-  })
+  
+  proxy <- dataTableProxy("df")
+  observe({
+    replaceData(proxy, df(), resetPaging = FALSE, rownames = FALSE)
+  })  
 
   observeEvent(input$upClick, {
     if (input$upClick != "test") {
