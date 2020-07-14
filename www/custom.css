@@ -3,9 +3,9 @@
 }
 
 .main-header{
-  -webkit-box-shadow: 0 5px 5px 0 #03254E;
-	-moz-box-shadow: 0 5px 5px 0 #03254E;
-	box-shadow: 0 5px 10px 0 #03254E;
+  -webkit-box-shadow: 0 5px 5px 0 #4056a1;
+	-moz-box-shadow: 0 5px 5px 0 #4056a1;
+	box-shadow: 0 5px 10px 0 #4056a1;
 }
 
 .skin-blue .main-header .navbar {
@@ -15,25 +15,25 @@
 .skin-blue .main-header .logo {
   background-color: #fff;
   position: fixed;
-  color: #03254E;
+  color: #4056a1;
   border-bottom: 0 solid transparent;
   font-family: "Roboto", sans-serif;;
 }
 
 .skin-blue .main-header .logo:hover {
   background-color: #fff;
-  color: #03254E;
+  color: #4056a1;
   position: fixed;
   border-bottom: 0 solid transparent;
 }
 
 .skin-blue .main-header .navbar .sidebar-toggle:hover {
   color: #fff;
-  background: #03254E;
+  background: #4056a1;
 }
 
 .skin-blue .main-header .navbar .sidebar-toggle {
-  color: #03254E;
+  color: #4056a1;
   background: #fff;
   position: fixed;
   overflow-y: scroll;
@@ -96,7 +96,7 @@
 .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li:hover>a {
   color: #fff;
   font-weight: 500;
-  border-left-color: #FFD6E0;
+  border-left-color: #d79922;
   background-color: rgb(0, 0, 0, 0.1);
 }
 
@@ -105,12 +105,12 @@
 }
 
 .skin-blue .left-side, .skin-blue .main-sidebar, .skin-blue .wrapper {
-  background-color: #03254E;
+  background-color: #4056a1;
   color: #fff;
 }
 
 .tippy-tooltip {
-  background-color: #03254E;
+  background-color: #4056a1;
   color: #F8F7F6;
   font-size: 18px;
   text-align: left;
@@ -126,7 +126,7 @@
 
 
 .nav-tabs-custom>.nav-tabs>li.active>a {
-  color: #03254E;
+  color: #4056a1;
   background-color: #F8F7F6;
 }
 
@@ -137,7 +137,7 @@
 
 .nav-tabs-custom>.nav-tabs>li.active>a:hover,
 .nav-tabs-custom>.nav-tabs>li>a:hover {
-  color: #03254E;
+  color: #4056a1;
   background-color: #F8F7F6;
 }
 
@@ -174,7 +174,7 @@ a:active, a:focus, a:hover {
 
 hr {
   width: 50%;
-  border-top: 2px solid #03254E;
+  border-top: 2px solid #4056a1;
 }
 
 
@@ -182,7 +182,7 @@ hr {
   margin-bottom: -20px;
   margin-left: -20px;
   margin-right: -20px;
-  color: #03254E;
+  color: #4056a1;
   z-index: 1000;
   font-size: 12px;
 }
